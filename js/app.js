@@ -12,7 +12,6 @@
          id: productName,
          quantity: productQuantity
       }
-      
       sendToStorage(product)
 
       const label = document.createElement('label')
@@ -69,15 +68,18 @@
       openModal()
    })
 
-   let data = []
-
    const sendToStorage = (products = {}) => {
-      const addToTable = data.push(products)
-      localStorage.setItem('products',JSON.stringify(data))
+      let isExist = localStorage.getItem('products')
+      isExist = isExist ? JSON.parse(isExist): []
+      isExist.push(products)
+      localStorage.setItem('products',JSON.stringify(isExist))
    }
 
+   const removeStorage = () => {
+      localStorage.removeItem('products')
+   }
 
-
+   
 
    const getFromStorage = () => {
       // this feature will be edited
@@ -108,8 +110,8 @@
       // console.log(listProducts)
       
    }
-
    getFromStorage()
+   removeStorage()
 })()
 
 
